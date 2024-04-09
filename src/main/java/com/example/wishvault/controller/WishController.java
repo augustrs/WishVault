@@ -1,12 +1,14 @@
 package com.example.wishvault.controller;
 
+import com.example.wishvault.model.Wish;
 import com.example.wishvault.model.Wishlist;
 import com.example.wishvault.service.WishService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.sql.SQLException;
+import java.util.List;
 
 @Controller
 public class WishController {
@@ -22,15 +24,25 @@ public class WishController {
         return "WishVault";
     }
     @GetMapping("/create")
-    public String getCreatePage() {
-
+    public String getCreatePage(Model model) {
+    Wishlist defaultWishlist = new Wishlist();
+    model.addAttribute("wishList", defaultWishlist);
         return "CreateWishList";
     }
 
     @PostMapping("/create")
-    public void postWishList(@ModelAttribute Wishlist wishlist) {
-
+    public String postWishList(@ModelAttribute Wishlist wishlist) throws SQLException {
+    wishService.createWishlist(wishlist);
+    return "redirect:/home";
     }
+
+    @GetMapping("wishlist/{id}")
+    public String getWishes(@PathVariable int id, Model model) throws SQLException {
+        List<Wish> wishes = wishService.getWishesAsObject(id);
+        model.addAttribute("wishes",wishes);
+        return "Wishlist";
+    }
+
 
 
 

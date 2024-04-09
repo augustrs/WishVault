@@ -20,14 +20,16 @@
     </nav>
   </div>
 </header>
-<form th:action="@{/create}" th:object="${wishList}" method="post" class ="form-container">
-  <label for="name">Name:</label>
-  <input type="text" id="name" th:field="*{wisherName}" required placeholder="Your name">
-
-  <label for="event">Event:</label>
-  <input type="text" id="event" th:field="*{eventName}" required placeholder="What is this wishlist for?">
-  <input type="submit" value="Submit">
-</form>
+<table class = "wishes">
+  <tr>
+    <th class="wisheshead">Wishes:</th>
+  </tr>
+  <tr th:each="wish : ${wishes}">
+    <td>
+      <p th:text ="${wish.itemName}" class="wish-name"></p>
+    </td>
+  </tr>
+</table>
 </div>
 
 

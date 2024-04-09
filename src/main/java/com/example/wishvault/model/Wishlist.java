@@ -41,4 +41,8 @@ public class Wishlist {
     public void setWishes(List<Wish> wishes) {
         this.wishes = wishes;
     }
+
+    public void setListId(long generatedId) {
+
+    }
 }
