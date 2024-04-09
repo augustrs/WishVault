@@ -28,7 +28,7 @@ public class WishController {
     }
 
     @PostMapping("/create")
-    public String postWishList(@ModelAttribute Wishlist wishlist) {
+    public void postWishList(@ModelAttribute Wishlist wishlist) {
 
     }
 
