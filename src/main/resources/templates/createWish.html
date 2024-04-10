@@ -20,23 +20,25 @@
     </nav>
   </div>
 </header>
-<table class = "wishes">
-  <tr>
-    <th class="wisheshead">Wishes:</th>
-  </tr>
-  <tr th:each="wish : ${wishes}">
-    <td>
-      <p th:text ="${wish.name}" class="wish-name"></p>
-    </td>
-  </tr>
-</table>
-<div>
-  <!-- Button to redirect to the createWish page -->
-  <a th:href="@{/createWish/{id}(id=${listId})}" class="create-wish-button">
-    <button>Create Wish</button>
-  </a>
 
-</div>
+
+<form th:action="@{/createWish/{id}(id=${listId})}" method="post" th:object="${wish}">
+
+  <label for="name">Name:</label>
+  <input type="text" id="name" th:field="*{name}" required placeholder="Your wish">
+
+  <label for="description">Description:</label>
+  <input type="text" id="description" th:field="*{description}" required placeholder="Your wish description">
+
+  <label for="itemUrl">URL:</label>
+  <input type="url" id="itemUrl" th:field="*{itemUrl}" required placeholder="Link to where you can find your wish">
+
+  <label for="price">Price:</label>
+  <input type="number" id="price" th:field="*{price}" required step="0.01">
+
+  <input type="submit" value="Submit">
+</form>
+
 </div>
 
 
@@ -51,8 +53,6 @@
     </nav>
     <p>WishVault, Copyright &copy; 2024</p>
   </div>
-
-
 
 </footer>
 </body>

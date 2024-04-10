@@ -6,6 +6,7 @@ public class Wishlist {
     private String wisherName;
     private String eventName;
     private List<Wish> wishes;
+    private int listId;
 
 
     public Wishlist(String wisherName, String eventName, List<Wish> wishes) {
@@ -42,7 +43,7 @@ public class Wishlist {
         this.wishes = wishes;
     }
 
-    public void setListId(long generatedId) {
-
+    public void setListId(int listId) {
+    this.listId = listId;
     }
 }

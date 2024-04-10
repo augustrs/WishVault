@@ -23,6 +23,11 @@ public class WishService {
        return wishRepository.getWishesAsObject(id);
     }
 
+
+    public Wish createWish(Wish wish, int listId) throws SQLException {
+        return wishRepository.createWish(wish,listId);
+    }
+
     //TODO Finish this method
 
 }

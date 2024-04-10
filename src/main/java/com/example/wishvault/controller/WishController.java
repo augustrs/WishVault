@@ -6,6 +6,7 @@ import com.example.wishvault.service.WishService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -40,8 +41,27 @@ public class WishController {
     public String getWishes(@PathVariable int id, Model model) throws SQLException {
         List<Wish> wishes = wishService.getWishesAsObject(id);
         model.addAttribute("wishes",wishes);
+        model.addAttribute("listId",id);
         return "Wishlist";
     }
+
+    @GetMapping("/createWish/{id}")
+    public String createWishForm(@PathVariable("id") int id, Model model) {
+        model.addAttribute("listId",id);
+        model.addAttribute("wish", new Wish());
+        return "createWish";
+
+    }
+    @PostMapping("/createWish/{id}")
+    public String postWish(@PathVariable("id") int id, @ModelAttribute Wish wish, Model model) throws SQLException {
+        wish = wishService.createWish(wish,id);
+        System.out.println(wish);
+        return "redirect:/wishlist/" + id;
+
+    }
+
+
+
 
 
 

@@ -33,11 +33,34 @@ public class WishRepository {
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 long generatedId = rs.getLong(1);
-                wishlist.setListId(generatedId);
+                wishlist.setListId((int) generatedId);
             }
 
         }
     }
+
+    public Wish createWish(Wish wish, int listId) throws SQLException {
+        Connection connection = ConnectionManager.getConnection(db_url, username, pwd);
+        String SQL = "INSERT INTO WISH(NAME,DESCRIPTION,ITEMURL,PRICE,LISTID) VALUES (?,?,?,?,?)";
+
+        try (PreparedStatement ps = connection.prepareStatement(SQL, PreparedStatement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, wish.getName());
+            ps.setString(2, wish.getDescription());
+            ps.setString(3, wish.getItemUrl());
+            ps.setDouble(4, wish.getPrice());
+            ps.setInt(5,listId);
+
+            ps.executeUpdate();
+            ResultSet ids = ps.getGeneratedKeys();
+            ids.next();
+            int id = ids.getInt(1);
+
+            return wish;
+
+
+        }
+    }
+
 
     public List<Wish> getWishesAsObject(int id) throws SQLException {
         List<Wish> wishes = new ArrayList<>();
@@ -49,7 +72,7 @@ public class WishRepository {
 
         while (rs.next()) {
             Wish wish = new Wish();
-            wish.setItemName(rs.getString("NAME"));
+            wish.setName(rs.getString("NAME"));
             wish.setDescription(rs.getString("DESCRIPTION"));
             wish.setPrice(rs.getDouble("PRICE"));
             wish.setItemUrl(rs.getString("ITEMURL"));

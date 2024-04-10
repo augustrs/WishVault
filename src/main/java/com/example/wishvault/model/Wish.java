@@ -2,13 +2,15 @@ package com.example.wishvault.model;
 
 
 public class Wish {
-    private String itemName;
+    private String name;
     private String description;
     private String itemUrl;
     private double price;
+    private int id;
+    private int listId;
 
-    public Wish(String itemName, String description, String itemUrl, double price) {
-        this.itemName = itemName;
+    public Wish(String name, String description, String itemUrl, double price) {
+        this.name = name;
         this.description = description;
         this.itemUrl = itemUrl;
         this.price = price;
@@ -18,8 +20,8 @@ public class Wish {
 
     }
 
-    public String getItemName() {
-        return itemName;
+    public String getName() {
+        return name;
     }
 
     public String getDescription() {
@@ -34,8 +36,8 @@ public class Wish {
         return price;
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDescription(String description) {
@@ -48,5 +50,9 @@ public class Wish {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
