@@ -27,6 +27,9 @@ public class WishService {
     public Wish createWish(Wish wish, int listId) throws SQLException {
         return wishRepository.createWish(wish,listId);
     }
+    public int getHighestId() throws SQLException {
+        return wishRepository.getHighestId();
+    }
 
     //TODO Finish this method
 

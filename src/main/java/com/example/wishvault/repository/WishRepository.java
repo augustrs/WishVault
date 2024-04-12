@@ -81,6 +81,16 @@ public class WishRepository {
         }
         return wishes;
     }
+    public int getHighestId() throws SQLException {
+        int id = 0;
+        Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
+        String SQL = "SELECT MAX(LISTID) FROM WISHLIST";
+        PreparedStatement ps = connection.prepareStatement(SQL);
+
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getInt("MAX(LISTID)");
+    }
 
 
 }

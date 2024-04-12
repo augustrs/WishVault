@@ -34,7 +34,8 @@ public class WishController {
     @PostMapping("/create")
     public String postWishList(@ModelAttribute Wishlist wishlist) throws SQLException {
     wishService.createWishlist(wishlist);
-    return "redirect:/home";
+    int id = wishService.getHighestId();
+    return "redirect:/wishlist/" + id;
     }
 
     @GetMapping("wishlist/{id}")
