@@ -100,10 +100,10 @@ public class WishRepository {
         PreparedStatement ps = connection.prepareStatement(SQL);
         ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
-        String imageUrl = findImageUrl(id);
 
 
         while (rs.next()) {
+            String imageUrl = findImageUrl(rs.getInt("WISHID"));
             Wish wish = new Wish();
             wish.setName(rs.getString("NAME"));
             wish.setDescription(rs.getString("DESCRIPTION"));

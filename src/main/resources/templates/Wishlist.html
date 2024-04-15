@@ -24,12 +24,21 @@
   <tr>
     <th class="wisheshead" th:text="${wisherName} + 's wishes:'     "></th>
   </tr>
-  <tr th:each="wish : ${wishes}">
-    <td>
-      <p th:text ="${wish.name}" class="wish-name"></p>
-      <img th:src="${wish.imageUrl}">
-    </td>
+
+    <tr th:each="wish : ${wishes}" class="wish-item">
+      <div class="wish-container">
+        <td>
+          <div class="wish-box">
+            <img th:src="${wish.imageUrl}" class="wish-image">
+            <p th:text="${wish.name}" class="wish-name"></p>
+            <p th:text ="${wish.price} + ' kr.'" class ="wish-price"></p>
+          </div>
+        </td>
+      </div>
   </tr>
+
+
+  </div>
 </table>
 <div>
   <!-- Button to redirect to the createWish page -->
