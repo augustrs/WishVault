@@ -20,10 +20,9 @@ public class WishController {
 
     @GetMapping("/home")
     public String getHomePage() {
-
-
         return "WishVault";
     }
+
     @GetMapping("/create")
     public String getCreatePage(Model model) {
     Wishlist defaultWishlist = new Wishlist();
@@ -58,13 +57,6 @@ public class WishController {
         wish = wishService.createWish(wish,id);
         System.out.println(wish);
         return "redirect:/wishlist/" + id;
-
     }
-
-
-
-
-
-
 
 }
