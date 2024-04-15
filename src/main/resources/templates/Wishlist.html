@@ -55,6 +55,33 @@
 </div>
 </div>
 
+<button id="shareButton">Share</button>
+
+<script>
+  document.getElementById('shareButton').addEventListener('click', function() {
+    // Get the current URL
+    var currentUrl = window.location.href;
+
+    // Create a temporary input element
+    var tempInput = document.createElement('input');
+    tempInput.value = currentUrl;
+    document.body.appendChild(tempInput);
+
+    // Select the input content
+    tempInput.select();
+    tempInput.setSelectionRange(0, 99999); // For mobile devices
+
+    // Copy the URL to the clipboard
+    document.execCommand('copy');
+
+    // Remove the temporary input element
+    document.body.removeChild(tempInput);
+
+    // Provide feedback to the user
+    alert('Link copied to clipboard: ' + currentUrl);
+  });
+</script>
+
 
 <footer>
   <div class="container">
