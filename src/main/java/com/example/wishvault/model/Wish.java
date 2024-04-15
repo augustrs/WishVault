@@ -56,7 +56,7 @@ public class Wish {
     }
 
     public double getPrice() {
-        return price;
+            return price;
     }
 
     public void setName(String name) {
