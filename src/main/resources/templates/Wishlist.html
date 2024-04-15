@@ -22,11 +22,12 @@
 </header>
 <table class = "wishes">
   <tr>
-    <th class="wisheshead">Wishes:</th>
+    <th class="wisheshead" th:text="${wisherName} + 's wishes:'     "></th>
   </tr>
   <tr th:each="wish : ${wishes}">
     <td>
       <p th:text ="${wish.name}" class="wish-name"></p>
+      <img th:src="${wish.imageUrl}">
     </td>
   </tr>
 </table>

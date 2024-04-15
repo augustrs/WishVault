@@ -41,8 +41,10 @@ public class WishController {
     @GetMapping("wishlist/{id}")
     public String getWishes(@PathVariable int id, Model model) throws SQLException {
         List<Wish> wishes = wishService.getWishesAsObject(id);
+        String name = wishService.findNameFromId(id);
         model.addAttribute("wishes",wishes);
         model.addAttribute("listId",id);
+        model.addAttribute("wisherName",name);
         return "Wishlist";
     }
 
@@ -56,6 +58,8 @@ public class WishController {
     @PostMapping("/createWish/{id}")
     public String postWish(@PathVariable("id") int id, @ModelAttribute Wish wish, Model model) throws SQLException {
         wish = wishService.createWish(wish,id);
+        int wishId = wishService.getHighestWishId(id);
+        wishService.saveImage(wishId,wish.getImageUrl());
         System.out.println(wish);
         return "redirect:/wishlist/" + id;
 

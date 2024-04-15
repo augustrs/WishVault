@@ -20,7 +20,29 @@ public class WishRepository {
     @Value("${spring.datasource.password}")
     private String pwd;
 
+    public void saveImage(int wishId, String imageUrl) throws SQLException {
+        Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
+        String SQL = "INSERT INTO IMAGE (IMAGE, WISHID) VALUES (?,?)";
+        try (PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setString(1,imageUrl);
+            ps.setInt(2,wishId);
+            ps.executeUpdate();
+        }
+    }
 
+    public String findNameFromId(int id) throws SQLException {
+        Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
+        String SQL = "SELECT WISHERNAME FROM WISHLIST WHERE LISTID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setInt(1,id);
+
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            String name = rs.getString("WISHERNAME").toLowerCase();
+            name = name.substring(0, 1).toUpperCase() + name.substring(1);
+            return name;
+        }
+    }
     public void createWishlist(Wishlist wishlist) throws SQLException {
         Connection connection = ConnectionManager.getConnection(db_url, username, pwd);
         String SQL = "INSERT INTO WISHLIST(WISHERNAME,EVENTNAME)" + "values(?, ?)";
@@ -61,7 +83,16 @@ public class WishRepository {
         }
     }
 
-
+    public String findImageUrl(int id) throws SQLException {
+        Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
+        String SQL = "SELECT IMAGE FROM IMAGE WHERE WISHID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return rs.getString("IMAGE");
+        }
+    }
     public List<Wish> getWishesAsObject(int id) throws SQLException {
         List<Wish> wishes = new ArrayList<>();
         Connection connection = ConnectionManager.getConnection(db_url, username, pwd);
@@ -69,6 +100,8 @@ public class WishRepository {
         PreparedStatement ps = connection.prepareStatement(SQL);
         ps.setInt(1, id);
         ResultSet rs = ps.executeQuery();
+        String imageUrl = findImageUrl(id);
+
 
         while (rs.next()) {
             Wish wish = new Wish();
@@ -76,6 +109,7 @@ public class WishRepository {
             wish.setDescription(rs.getString("DESCRIPTION"));
             wish.setPrice(rs.getDouble("PRICE"));
             wish.setItemUrl(rs.getString("ITEMURL"));
+            wish.setImageUrl(imageUrl);
 
             wishes.add(wish);
         }
@@ -90,6 +124,16 @@ public class WishRepository {
         ResultSet rs = ps.executeQuery();
         rs.next();
         return rs.getInt("MAX(LISTID)");
+    }
+    public int getHighestWishId(int id) throws SQLException {
+        Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
+        String SQL = "SELECT MAX(WISHID) FROM WISH WHERE LISTID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt("MAX(WISHID)");
+        }
     }
 
 
