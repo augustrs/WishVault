@@ -310,3 +310,27 @@ footer {
     position: fixed; /* Position the footer relative to the viewport */
     bottom: 0; /* Position the footer at the bottom of the viewport */
 }
+
+/* form-styling */
+.form-container {
+    display: flex;
+    justify-content: space-between;
+    border-radius: 20px;
+    border: solid 5px black;
+    background: #5B90AE;
+    width: 90%;
+    height: 500px;
+}
+
+.form-container input[type="submit"] {
+    transition: 0.5s ease;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: #45a049;
+    transition: 0.5s ease;
+}
+
+input {
+    width: 20%;
+}
