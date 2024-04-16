@@ -70,8 +70,10 @@ public class WishController {
     public String viewWishDetails(@PathVariable int wishId, Model model) throws SQLException {
         Wish wish = wishService.getWishById(wishId);
         model.addAttribute("wish", wish);
-        return "showWish"; // Assuming you have a template named "WishDetails" to display wish details
+        return "showWish";
     }
+
+
 
 
 
