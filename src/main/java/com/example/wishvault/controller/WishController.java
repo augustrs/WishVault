@@ -47,13 +47,7 @@ public class WishController {
         return "Wishlist";
     }
 
-    @GetMapping("/createWish/{id}")
-    public String createWishForm(@PathVariable("id") int id, Model model) {
-        model.addAttribute("listId",id);
-        model.addAttribute("wish", new Wish());
-        return "createWish";
 
-    }
     @PostMapping("/createWish/{id}")
     public String postWish(@PathVariable("id") int id, @ModelAttribute Wish wish, Model model) throws SQLException {
         wish = wishService.createWish(wish,id);
