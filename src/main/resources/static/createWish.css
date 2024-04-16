@@ -106,6 +106,7 @@ header a:hover {
 }
 .form-container {
     padding-top: 20px;
+    font-family: "Source Serif 4", "Serif Pro";
     border: 1px solid #ccc; /* Add a border around the form container */
     border-radius: 20px;
     background-color: white;
@@ -113,7 +114,6 @@ header a:hover {
     margin: 100px auto;
     width: 40%; /* Set a specific width for the form container */
 }
-
 .form-container form {
     max-width: 300px;
     padding: 20px;
@@ -129,10 +129,7 @@ header a:hover {
 }
 .form-container input[type="text"],
 .form-container input[type="email"],
-.form-container input[type="submit"],
-.form-container input[type="number"],
-.form-container input[type="url"]
-{
+.form-container input[type="submit"] {
     width: 50%;
     padding: 10px;
     margin-top: 5px;
@@ -303,45 +300,6 @@ footer p {
     margin-top: 15px;
     margin-bottom: 15px;
 }
-.shareButton button{
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-}
-
-.show-wish {
-    display: flex;
-    background: white;
-    border-radius: 15px;
-    transition: all 0.5s ease;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    margin-left: 20px;
-    margin-right: 20px;
-    padding: 20px; /* Add padding for spacing */
-}
-
-.show-wish img {
-    width: 300px; /* Adjust the image width as needed */
-    height: auto; /* Maintain aspect ratio */
-    margin-right: 20px; /* Add margin to separate image from text */
-}
-
-.show-wish-content {
-    display: flex;
-    flex-direction: column; /* Stack the text vertically */
-}
-
-.header-show-wish {
-    text-align: left; /* Align text to the left */
-    margin-top: 0; /* Remove default margin */
-    margin-bottom: 10px; /* Add margin between text elements */
-}
-
-
-
-
-
 
 footer {
     background: #5B90AE;
@@ -351,4 +309,52 @@ footer {
     width: 100%; /* Make the footer span the entire width of the page */
     position: fixed; /* Position the footer relative to the viewport */
     bottom: 0; /* Position the footer at the bottom of the viewport */
+}
+
+/* form-styling */
+.form-container {
+    padding-top: 20px;
+    border: 1px solid #ccc; /* Add a border around the form container */
+    border-radius: 20px;
+    background-color: white;
+    text-align: center;
+    width: 90%; /* Set a specific width for the form container */
+    margin: 100px auto 160px;
+}
+
+.form-container form {
+    max-width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+
+}
+.form-container label {
+    margin-top: 40px;
+    display: block;
+    margin-bottom: 5px;
+}
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="submit"],
+.form-container input[type="number"],
+.form-container input[type="url"]
+{
+    width: 50%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 50px;
+    box-sizing: border-box;
+}
+.form-container input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+}
+
+.form-container input[type="submit"]:hover {
+    background-color: #45a049;
 }
