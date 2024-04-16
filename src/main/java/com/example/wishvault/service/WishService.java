@@ -22,6 +22,9 @@ public class WishService {
     public List<Wish> getWishesAsObject(int id) throws SQLException {
        return wishRepository.getWishesAsObject(id);
     }
+    public String findNameFromId(int id) throws SQLException {
+        return wishRepository.findNameFromId(id);
+    }
 
 
     public Wish createWish(Wish wish, int listId) throws SQLException {
@@ -29,6 +32,18 @@ public class WishService {
     }
     public int getHighestId() throws SQLException {
         return wishRepository.getHighestId();
+    }
+
+    public void saveImage(int wishId, String imageUrl) throws SQLException {
+        wishRepository.saveImage(wishId,imageUrl);
+    }
+
+    public int getHighestWishId(int wishId) throws SQLException {
+        return wishRepository.getHighestWishId(wishId);
+    }
+
+    public Wish getWishById(int wishid) throws SQLException {
+        return wishRepository.getWishById(wishid);
     }
 
     //TODO Finish this method

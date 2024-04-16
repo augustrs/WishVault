@@ -8,12 +8,16 @@ public class Wish {
     private double price;
     private int id;
     private int listId;
+    private String imageUrl;
 
-    public Wish(String name, String description, String itemUrl, double price) {
+
+    public Wish(String name, String description, String itemUrl, double price, String imageUrl, int id) {
         this.name = name;
         this.description = description;
         this.itemUrl = itemUrl;
         this.price = price;
+        this.imageUrl = imageUrl;
+        this.id = id;
     }
 
     public Wish() {
@@ -28,12 +32,32 @@ public class Wish {
         return description;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setListId(int listId) {
+        this.listId = listId;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public int getListId() {
+        return listId;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
     public String getItemUrl() {
         return itemUrl;
     }
 
     public double getPrice() {
-        return price;
+            return price;
     }
 
     public void setName(String name) {
