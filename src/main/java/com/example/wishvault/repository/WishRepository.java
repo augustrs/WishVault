@@ -102,9 +102,12 @@ public class WishRepository {
         ResultSet rs = ps.executeQuery();
 
 
+
+
         while (rs.next()) {
             String imageUrl = findImageUrl(rs.getInt("WISHID"));
             Wish wish = new Wish();
+            wish.setId(rs.getInt("WISHID"));
             wish.setName(rs.getString("NAME"));
             wish.setDescription(rs.getString("DESCRIPTION"));
             wish.setPrice(rs.getDouble("PRICE"));
@@ -133,6 +136,33 @@ public class WishRepository {
             ResultSet rs = ps.executeQuery();
             rs.next();
             return rs.getInt("MAX(WISHID)");
+        }
+    }
+
+    public Wish getWishById(int wishId) throws SQLException {
+        Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
+        String SQL = "SELECT * FROM WISH WHERE WISHID = ?";
+
+
+        try (PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setInt(1, wishId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String imageUrl = findImageUrl(rs.getInt("WISHID"));
+                Wish wish = new Wish();
+                wish.setId(rs.getInt("WISHID"));
+                wish.setName(rs.getString("NAME"));
+                wish.setDescription(rs.getString("DESCRIPTION"));
+                wish.setItemUrl(rs.getString("ITEMURL"));
+                wish.setPrice(rs.getDouble("PRICE"));
+                wish.setListId(rs.getInt("LISTID"));
+                wish.setImageUrl(imageUrl);
+
+                return wish;
+            } else {
+                return null;
+            }
+
         }
     }
 

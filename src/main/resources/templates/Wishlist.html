@@ -28,11 +28,14 @@
     <th class="wisheshead" th:text="${wisherName} + 's wishes'     "></th>
   </tr>
 
+
     <tr th:each="wish : ${wishes}" class="wish-item">
       <div class="wish-container">
         <td>
           <div class="wish-box">
+            <a th:href="@{/wish/{wishId}(wishId=${wish.id})}">
             <img th:src="${wish.imageUrl}" class="wish-image">
+            </a>
             <p th:text="${wish.name}" class="wish-name"></p>
 
 
@@ -42,6 +45,7 @@
         </td>
       </div>
   </tr>
+
 
 
   </div>
@@ -55,7 +59,7 @@
 </div>
 </div>
 
-<button id="shareButton">Share</button>
+<button class="shareButton">Share</button>
 
 <script>
   document.getElementById('shareButton').addEventListener('click', function() {

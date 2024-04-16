@@ -301,6 +301,45 @@ footer p {
     margin-top: 15px;
     margin-bottom: 15px;
 }
+.shareButton button{
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+}
+
+.show-wish {
+    display: flex;
+    background: white;
+    border-radius: 15px;
+    transition: all 0.5s ease;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 20px; /* Add padding for spacing */
+}
+
+.show-wish img {
+    width: 300px; /* Adjust the image width as needed */
+    height: auto; /* Maintain aspect ratio */
+    margin-right: 20px; /* Add margin to separate image from text */
+}
+
+.show-wish-content {
+    display: flex;
+    flex-direction: column; /* Stack the text vertically */
+}
+
+.header-show-wish {
+    text-align: left; /* Align text to the left */
+    margin-top: 0; /* Remove default margin */
+    margin-bottom: 10px; /* Add margin between text elements */
+}
+
+
+
+
+
 
 
 

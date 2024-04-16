@@ -42,6 +42,10 @@ public class WishService {
         return wishRepository.getHighestWishId(wishId);
     }
 
+    public Wish getWishById(int wishid) throws SQLException {
+        return wishRepository.getWishById(wishid);
+    }
+
     //TODO Finish this method
 
 }

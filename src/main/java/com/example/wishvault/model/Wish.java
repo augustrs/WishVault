@@ -11,12 +11,13 @@ public class Wish {
     private String imageUrl;
 
 
-    public Wish(String name, String description, String itemUrl, double price, String imageUrl) {
+    public Wish(String name, String description, String itemUrl, double price, String imageUrl, int id) {
         this.name = name;
         this.description = description;
         this.itemUrl = itemUrl;
         this.price = price;
         this.imageUrl = imageUrl;
+        this.id = id;
     }
 
     public Wish() {
