@@ -313,24 +313,48 @@ footer {
 
 /* form-styling */
 .form-container {
-    display: flex;
-    justify-content: space-between;
+    padding-top: 20px;
+    border: 1px solid #ccc; /* Add a border around the form container */
     border-radius: 20px;
-    border: solid 5px black;
-    background: #5B90AE;
-    width: 90%;
-    height: 500px;
+    background-color: white;
+    text-align: center;
+    width: 90%; /* Set a specific width for the form container */
+    margin: 100px auto 160px;
 }
 
+.form-container form {
+    max-width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+
+}
+.form-container label {
+    margin-top: 40px;
+    display: block;
+    margin-bottom: 5px;
+}
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="submit"],
+.form-container input[type="number"],
+.form-container input[type="url"]
+{
+    width: 50%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 50px;
+    box-sizing: border-box;
+}
 .form-container input[type="submit"] {
-    transition: 0.5s ease;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 15px;
 }
 
 .form-container input[type="submit"]:hover {
     background-color: #45a049;
-    transition: 0.5s ease;
-}
-
-input {
-    width: 20%;
 }

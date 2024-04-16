@@ -21,26 +21,6 @@
   </div>
 </header>
 
-<!--<form th:action="@{/createWish/{id}(id=${listId})}" method="post" th:object="${wish}">
-
-  <label for="name">Name:</label>
-  <input type="text" id="name" th:field="*{name}" required placeholder="Your wish">
-
-  <label for="description">Description:</label>
-  <input type="text" id="description" th:field="*{description}" required placeholder="Your wish description">
-
-  <label for="itemUrl">URL:</label>
-  <input type="url" id="itemUrl" th:field="*{itemUrl}" required placeholder="Link to where you can find your wish">
-
-  <label for="price">Price:</label>
-  <input type="number" id="price" th:field="*{price}" required step="0.01">
-
-  <label for="imageUrl">Image URL:</label>
-  <input type="url" id ="imageUrl" th:field="*{imageUrl}" placeholder="Link">
-
-  <input type="submit" value="Submit">
-</form>-->
-
   <form th:action="@{/createWish/{id}(id=${listId})}" method="post" th:object="${wish}">
 
   <div class="form-container">
@@ -64,7 +44,7 @@
 
       <div class="column">
       <label for="imageUrl">Image URL:</label>
-      <input type="url" id="imageUrl" th:field="*{imageUrl}" placeholder="Link">
+      <input type="url" id="imageUrl" th:field="*{imageUrl}" placeholder="Link to an image for your gift">
       </div>
 
 
