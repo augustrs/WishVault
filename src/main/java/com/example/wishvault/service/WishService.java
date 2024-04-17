@@ -46,6 +46,10 @@ public class WishService {
         return wishRepository.getWishById(wishid);
     }
 
+    public void updateWish(Wish updatedwish)  throws SQLException{
+        wishRepository.updateWish(updatedwish);
+    }
+
     //TODO Finish this method
 
 }

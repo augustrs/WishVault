@@ -41,6 +41,10 @@
 
             <p th:text ="${wish.price} + ' kr.'" class ="wish-price"></p>
 
+            <a th:href="@{/editWish/{id}(id=${wish.id})}" class="edit-wish-button">
+              <button>Edit Wish</button>
+            </a>
+
           </div>
         </td>
       </div>

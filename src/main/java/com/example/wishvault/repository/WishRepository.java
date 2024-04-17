@@ -5,6 +5,7 @@ import com.example.wishvault.model.Wishlist;
 import com.example.wishvault.util.ConnectionManager;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -167,4 +168,20 @@ public class WishRepository {
     }
 
 
+    public void updateWish(Wish updatedwish) throws SQLException{
+        Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
+        String SQL = "UPDATE WISH SET NAME = ?, DESCRIPTION = ?, ITEMURL = ?, PRICE = ? WHERE WISHID = ?";
+
+
+        try (PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setString(1, updatedwish.getName());
+            ps.setString(2, updatedwish.getDescription());
+            ps.setString(3, updatedwish.getItemUrl());
+            ps.setDouble(4, updatedwish.getPrice());
+            ps.setInt(5, updatedwish.getId());
+
+            ps.executeUpdate();
+        }
+
+    }
 }

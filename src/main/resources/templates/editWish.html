@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+<header>
+
+</header>
+
+<div class ="container">
+    <h2>Edit Wish</h2>
+    <form th:action="@{/editWish/{id}(id=${wish.id})}" method = "post" th:object="${wish}">
+        <label for ="name">Name</label>
+        <input type = "text" id="name" th:field="*{name}" required placeholder="Your wish new name">
+
+        <label for ="description">Description</label>
+        <input type = "text" id="description" th:field="*{description}" required placeholder="Your wish new description">
+
+        <label for ="price">Price</label>
+        <input type = "number" id="price" th:field="*{price}" required placeholder="Your wish new price">
+
+        <label for ="itemUrl">Link</label>
+        <input type = "url" id="itemUrl" th:field="*{itemUrl}" required placeholder="Your wish new link">
+
+        <label for ="imageUrl">Name</label>
+        <input type = "text" id="imageUrl" th:field="*{imageUrl}" required placeholder="Your wish new imageUrl">
+
+        <input class="submit-buton" type="submit" value="Save Changes">
+
+    </form>
+</div>
+
+<footer>
+
+</footer>
+
+</body>
+</html>

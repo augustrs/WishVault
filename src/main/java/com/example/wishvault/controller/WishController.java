@@ -73,6 +73,18 @@ public class WishController {
         return "showWish";
     }
 
+    @GetMapping("/editWish/{id}")
+    public String editWishForm(@PathVariable int id, Model model) throws SQLException {
+        Wish wish = wishService.getWishById(id);
+        model.addAttribute("wish", wish);
+
+        return "editWish";
+    }
+    @PostMapping("editWish/{id}")
+    public String editWish(@PathVariable int id, @ModelAttribute Wish updatedwish) throws SQLException {
+        wishService.updateWish(updatedwish);
+        return "redirect:/wish/" + id;
+    }
 
 
 
