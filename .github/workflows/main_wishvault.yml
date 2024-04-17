@@ -63,7 +63,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'turistguide'
+          app-name: 'wishvault'
           slot-name: 'Production'
           package: '*.jar'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2A55127288BB4515924EB40084634417 }}
