@@ -46,12 +46,15 @@ jobs:
         env:
           QODANA_TOKEN: ${{ secrets.QODANA_TOKEN }}
 
+
   deploy:
     runs-on: ubuntu-latest
     needs: qodana
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+    permissions:
+      id-token: write #This is required for requesting the JWT
 
     steps:
       - name: Download artifact from build job
@@ -59,11 +62,17 @@ jobs:
         with:
           name: java-app
 
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_5E0FC9FCEAB840C296F87D7F00C9005B }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_75ED20818D6F466284E3893911779DAD }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_813B2DB9F7294567A13C7DC04A34EEC8 }}
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'wishvault'
+          app-name: 'wishvaultkea'
           slot-name: 'Production'
           package: '*.jar'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2A55127288BB4515924EB40084634417 }}
