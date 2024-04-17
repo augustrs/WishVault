@@ -44,6 +44,10 @@
             <a th:href="@{/editWish/{id}(id=${wish.id})}" class="edit-wish-button">
               <button>Edit Wish</button>
             </a>
+            <form th:action="@{/deleteWish/{id}(id=${wish.id})}" method="post">
+              <button type="submit">Delete Wish</button>
+            </form>
+
 
           </div>
         </td>
@@ -54,6 +58,8 @@
 
   </div>
 </table>
+
+
 <div>
   <!-- Button to redirect to the createWish page -->
   <a th:href="@{/createWish/{id}(id=${listId})}" class="create-wish-button">

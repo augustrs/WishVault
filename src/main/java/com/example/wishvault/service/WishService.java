@@ -50,6 +50,14 @@ public class WishService {
         wishRepository.updateWish(updatedwish);
     }
 
+    public void deleteWish(int id) throws SQLException {
+        wishRepository.deleteWish(id);
+    }
+
+    public void deleteWishImage(int id) throws SQLException {
+        wishRepository.deleteWishImage(id);
+    }
+
     //TODO Finish this method
 
 }

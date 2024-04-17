@@ -184,4 +184,36 @@ public class WishRepository {
         }
 
     }
+
+    public void deleteWish(int id) throws SQLException {
+        Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
+        String SQL = "DELETE FROM WISH WHERE WISHID = ?";
+
+        try(PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setInt(1,id);
+            ps.executeUpdate();
+        }
+    }
+    public void deleteImage(int id) throws SQLException {
+        Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
+        String SQL = "DELETE FROM IMAGE WHERE IMAGEID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        }
+    }
+
+    public void deleteWishImage(int id) throws SQLException {
+        Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
+        String SQL = "SELECT IMAGEID FROM IMAGE WHERE WISHID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                int imageToDelete = rs.getInt("IMAGEID");
+                deleteImage(imageToDelete);
+            }
+        }
+    }
 }

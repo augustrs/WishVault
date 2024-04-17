@@ -87,6 +87,17 @@ public class WishController {
     }
 
 
+    @PostMapping("/deleteWish/{id}")
+    public String deleteWish(@PathVariable int id, RedirectAttributes redirectAttributes) throws SQLException {
+        Wish wishToDelete = wishService.getWishById(id);
+        wishService.deleteWishImage(id);
+        wishService.deleteWish(id);
+        int wishListId = wishToDelete.getListId();
+        redirectAttributes.addAttribute("id",wishListId);
+        return "redirect:/wishlist/" + wishListId;
+    }
+
+
 
 
 
