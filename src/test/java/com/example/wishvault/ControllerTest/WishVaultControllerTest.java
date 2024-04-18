@@ -133,5 +133,6 @@ public class WishVaultControllerTest {
                 .andExpect(view().name("editWish"))
                 .andExpect(model().attributeExists("wish"))
                 .andExpect(model().attribute("wish", wish));
+
     }
 }
