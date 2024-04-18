@@ -3,15 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Edit</title>
+    <link th:href="@{/style.css}" rel="stylesheet">
 </head>
 <body>
 <header>
-
+    <div class="container">
+        <div id="branding">
+            <h1>WishVault</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="/home">Home</a></li>
+                <li><a href="#">Socials</a></li>
+            </ul>
+        </nav>
+    </div>
 </header>
 
-<div class ="container">
     <h2>Edit Wish</h2>
-    <form th:action="@{/editWish/{id}(id=${wish.id})}" method = "post" th:object="${wish}">
+    <form th:action="@{/editWish/{id}(id=${wish.id})}" method = "post" th:object="${wish}" class="form-container">
         <label for ="name">Name</label>
         <input type = "text" id="name" th:field="*{name}" required placeholder="Your wish new name">
 
@@ -30,9 +40,19 @@
         <input class="submit-buton" type="submit" value="Save Changes">
 
     </form>
-</div>
+
 
 <footer>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href ="#">Privacy</a></li>
+                <li><a href ="#">About</a></li>
+                <li><a href ="https://www.arla.dk/opskrifter/cookies/">Cookies</a></li>
+            </ul>
+        </nav>
+        <p>WishVault, Copyright &copy; 2024</p>
+    </div>
 
 </footer>
 

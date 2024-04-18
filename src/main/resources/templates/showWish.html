@@ -33,7 +33,11 @@
     <p th:text="${wish.price} + ' kr'"></p>
     <a th:href="${wish.itemUrl}">Buy now</a>
     <a th:href="@{/wishlist/{listId}(listId=${wish.listId})}" class="return-to-wishlist-button">Return to Wishlist</a>
-
+    <a th:href="@{/editWish/{id}(id=${wish.id})}" class="edit-wish-button">
+      <button>Edit Wish</button>
+    </a>
+    <form th:action="@{/deleteWish/{id}(id=${wish.id})}" method="post">
+      <button type="submit">Delete Wish</button>
 
   </div>
 </div>
