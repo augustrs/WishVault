@@ -10,40 +10,39 @@ import java.util.List;
 
 @Service
 public class WishService {
-
     private WishRepository wishRepository;
 
     public WishService(WishRepository wishRepository) {
         this.wishRepository = wishRepository;
     }
 
-    public void createWishlist(Wishlist wishlist) {
+    public void createWishlist(Wishlist wishlist) throws SQLException {
         wishRepository.createWishlist(wishlist);
     }
-    public List<Wish> getWishesAsObject(int id) {
+    public List<Wish> getWishesAsObject(int id) throws SQLException {
        return wishRepository.getWishesAsObject(id);
     }
-    public String findNameFromId(int id) {
+    public String findNameFromId(int id) throws SQLException {
         return wishRepository.findNameFromId(id);
     }
 
-    public Wish createWish(Wish wish, int listId) {
+
+    public Wish createWish(Wish wish, int listId) throws SQLException {
         return wishRepository.createWish(wish,listId);
     }
-
-    public int getHighestId() {
+    public int getHighestId() throws SQLException {
         return wishRepository.getHighestId();
     }
 
-    public void saveImage(int wishId, String imageUrl) {
+    public void saveImage(int wishId, String imageUrl) throws SQLException {
         wishRepository.saveImage(wishId,imageUrl);
     }
 
-    public int getHighestWishId(int wishId) {
+    public int getHighestWishId(int wishId) throws SQLException {
         return wishRepository.getHighestWishId(wishId);
     }
 
-    public Wish getWishById(int wishid) {
+    public Wish getWishById(int wishid) throws SQLException {
         return wishRepository.getWishById(wishid);
     }
 
@@ -60,9 +59,6 @@ public class WishService {
     }
     public List<Wishlist> getAllWishlist() throws SQLException {
         return wishRepository.getAllWishList();
-    }
-    public void deleteWishlist(int id) throws SQLException {
-        wishRepository.deleteWishlist(id);
     }
 
 
