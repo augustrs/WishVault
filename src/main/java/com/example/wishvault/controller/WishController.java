@@ -1,5 +1,7 @@
 package com.example.wishvault.controller;
 
+import com.example.wishvault.exceptions.DatabaseOperationException;
+import com.example.wishvault.exceptions.WishlistNotFoundException;
 import com.example.wishvault.model.Wish;
 import com.example.wishvault.model.Wishlist;
 import com.example.wishvault.service.WishService;
@@ -8,12 +10,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.sql.SQLException;
 import java.util.List;
 
 @Controller
 public class WishController {
+
     private WishService wishService;
+
     public WishController(WishService wishService) {
         this.wishService = wishService;
     }
@@ -31,31 +34,53 @@ public class WishController {
     }
 
     @PostMapping("/create")
-    public String postWishList(@ModelAttribute Wishlist wishlist) throws SQLException {
-    wishService.createWishlist(wishlist);
-    int id = wishService.getHighestId();
-    return "redirect:/wishlist/" + id;
+    public String postWishList(@ModelAttribute Wishlist wishlist, RedirectAttributes redirectAttributes) {
+
+        try {
+            wishService.createWishlist(wishlist);
+            int id = wishService.getHighestId();
+            return "redirect:/wishlist/" + id;
+        }
+
+        catch (DatabaseOperationException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/error";
+        }
     }
 
     @GetMapping("wishlist/{id}")
-    public String getWishes(@PathVariable int id, Model model) throws SQLException {
-        List<Wish> wishes = wishService.getWishesAsObject(id);
-        String name = wishService.findNameFromId(id);
-        model.addAttribute("wishes",wishes);
-        model.addAttribute("listId",id);
-        model.addAttribute("wisherName",name);
-        return "Wishlist";
+    public String getWishes(@PathVariable int id, Model model, RedirectAttributes redirectAttributes) {
+
+        try {
+            List<Wish> wishes = wishService.getWishesAsObject(id);
+            String name = wishService.findNameFromId(id);
+            model.addAttribute("wishes", wishes);
+            model.addAttribute("listId", id);
+            model.addAttribute("wisherName", name);
+            return "Wishlist";
+        }
+
+        catch (WishlistNotFoundException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/error";
+        }
     }
 
-
     @PostMapping("/createWish/{id}")
-    public String postWish(@PathVariable("id") int id, @ModelAttribute Wish wish, Model model) throws SQLException {
-        wish = wishService.createWish(wish,id);
-        int wishId = wishService.getHighestWishId(id);
-        wishService.saveImage(wishId,wish.getImageUrl());
-        System.out.println(wish);
-        return "redirect:/wishlist/" + id;
+    public String postWish(@PathVariable("id") int id, @ModelAttribute Wish wish, RedirectAttributes redirectAttributes) {
 
+        try {
+            wish = wishService.createWish(wish, id);
+            int wishId = wishService.getHighestWishId(id);
+            wishService.saveImage(wishId, wish.getImageUrl());
+            System.out.println(wish);
+            return "redirect:/wishlist/" + id;
+        }
+
+        catch (WishlistNotFoundException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/error";
+        }
     }
 
     @GetMapping("/createWish/{id}")
@@ -67,16 +92,18 @@ public class WishController {
     }
 
     @GetMapping("/wish/{wishId}")
-    public String viewWishDetails(@PathVariable int wishId, Model model) throws SQLException {
-        Wish wish = wishService.getWishById(wishId);
-        model.addAttribute("wish", wish);
-        return "showWish"; // Assuming you have a template named "WishDetails" to display wish details
+    public String viewWishDetails(@PathVariable int wishId, Model model, RedirectAttributes redirectAttributes) {
+
+        try {
+            Wish wish = wishService.getWishById(wishId);
+            model.addAttribute("wish", wish);
+            return "showWish";
+        }
+
+        catch (DatabaseOperationException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+            return "redirect:/error";
+        }
     }
-
-
-
-
-
-
 
 }

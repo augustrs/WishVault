@@ -1,5 +1,7 @@
 package com.example.wishvault.repository;
 
+import com.example.wishvault.exceptions.DatabaseOperationException;
+import com.example.wishvault.exceptions.WishlistNotFoundException;
 import com.example.wishvault.model.Wish;
 import com.example.wishvault.model.Wishlist;
 import com.example.wishvault.util.ConnectionManager;
@@ -20,19 +22,25 @@ public class WishRepository {
     @Value("${spring.datasource.password}")
     private String pwd;
 
-    public void saveImage(int wishId, String imageUrl) throws SQLException {
+    public void saveImage(int wishId, String imageUrl) {
         Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
         String SQL = "INSERT INTO IMAGE (IMAGE, WISHID) VALUES (?,?)";
+
         try (PreparedStatement ps = connection.prepareStatement(SQL)) {
             ps.setString(1,imageUrl);
             ps.setInt(2,wishId);
             ps.executeUpdate();
         }
+
+        catch (SQLException e) {
+            throw new DatabaseOperationException("Error occurred while saving image to the database", e);
+        }
     }
 
-    public String findNameFromId(int id) throws SQLException {
+    public String findNameFromId(int id) {
         Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
         String SQL = "SELECT WISHERNAME FROM WISHLIST WHERE LISTID = ?";
+
         try (PreparedStatement ps = connection.prepareStatement(SQL)) {
             ps.setInt(1,id);
 
@@ -42,8 +50,13 @@ public class WishRepository {
             name = name.substring(0, 1).toUpperCase() + name.substring(1);
             return name;
         }
+
+        catch (SQLException e) {
+           throw new WishlistNotFoundException("Wishlist not found");
+        }
     }
-    public void createWishlist(Wishlist wishlist) throws SQLException {
+
+    public void createWishlist(Wishlist wishlist) {
         Connection connection = ConnectionManager.getConnection(db_url, username, pwd);
         String SQL = "INSERT INTO WISHLIST(WISHERNAME,EVENTNAME)" + "values(?, ?)";
 
@@ -57,11 +70,14 @@ public class WishRepository {
                 long generatedId = rs.getLong(1);
                 wishlist.setListId((int) generatedId);
             }
+        }
 
+        catch (SQLException e) {
+            throw new DatabaseOperationException("Error occurred while creating wishlist", e);
         }
     }
 
-    public Wish createWish(Wish wish, int listId) throws SQLException {
+    public Wish createWish(Wish wish, int listId) {
         Connection connection = ConnectionManager.getConnection(db_url, username, pwd);
         String SQL = "INSERT INTO WISH(NAME,DESCRIPTION,ITEMURL,PRICE,LISTID) VALUES (?,?,?,?,?)";
 
@@ -78,12 +94,14 @@ public class WishRepository {
             int id = ids.getInt(1);
 
             return wish;
+        }
 
-
+        catch (SQLException e) {
+            throw new WishlistNotFoundException("Wishlist not found");
         }
     }
 
-    public String findImageUrl(int id) throws SQLException {
+    public String findImageUrl(int id) {
         Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
         String SQL = "SELECT IMAGE FROM IMAGE WHERE WISHID = ?";
         try (PreparedStatement ps = connection.prepareStatement(SQL)) {
@@ -92,57 +110,76 @@ public class WishRepository {
             rs.next();
             return rs.getString("IMAGE");
         }
+        catch (SQLException e) {
+            throw new DatabaseOperationException("Error occurred while finding image url", e);
+        }
     }
-    public List<Wish> getWishesAsObject(int id) throws SQLException {
+
+    public List<Wish> getWishesAsObject(int id) {
         List<Wish> wishes = new ArrayList<>();
         Connection connection = ConnectionManager.getConnection(db_url, username, pwd);
         String SQL = "SELECT * FROM WISH WHERE LISTID = ?";
-        PreparedStatement ps = connection.prepareStatement(SQL);
-        ps.setInt(1, id);
-        ResultSet rs = ps.executeQuery();
 
+        try (PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
 
+            while (rs.next()) {
+                String imageUrl = findImageUrl(rs.getInt("WISHID"));
+                Wish wish = new Wish();
+                wish.setId(rs.getInt("WISHID"));
+                wish.setName(rs.getString("NAME"));
+                wish.setDescription(rs.getString("DESCRIPTION"));
+                wish.setPrice(rs.getDouble("PRICE"));
+                wish.setItemUrl(rs.getString("ITEMURL"));
+                wish.setImageUrl(imageUrl);
 
-
-        while (rs.next()) {
-            String imageUrl = findImageUrl(rs.getInt("WISHID"));
-            Wish wish = new Wish();
-            wish.setId(rs.getInt("WISHID"));
-            wish.setName(rs.getString("NAME"));
-            wish.setDescription(rs.getString("DESCRIPTION"));
-            wish.setPrice(rs.getDouble("PRICE"));
-            wish.setItemUrl(rs.getString("ITEMURL"));
-            wish.setImageUrl(imageUrl);
-
-            wishes.add(wish);
+                wishes.add(wish);
+            }
+            return wishes;
         }
-        return wishes;
+
+        catch (SQLException e) {
+            throw new WishlistNotFoundException("Wishlist not found");
+        }
     }
-    public int getHighestId() throws SQLException {
+
+    public int getHighestId() {
         int id = 0;
         Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
         String SQL = "SELECT MAX(LISTID) FROM WISHLIST";
-        PreparedStatement ps = connection.prepareStatement(SQL);
 
-        ResultSet rs = ps.executeQuery();
-        rs.next();
-        return rs.getInt("MAX(LISTID)");
+        try (PreparedStatement ps = connection.prepareStatement(SQL)) {
+
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt("MAX(LISTID)");
+        }
+
+        catch (SQLException e) {
+            throw new DatabaseOperationException("Error occurred while finding highest id of wishlist", e);
+        }
     }
-    public int getHighestWishId(int id) throws SQLException {
+
+    public int getHighestWishId(int id) {
         Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
         String SQL = "SELECT MAX(WISHID) FROM WISH WHERE LISTID = ?";
+
         try (PreparedStatement ps = connection.prepareStatement(SQL)) {
             ps.setInt(1,id);
             ResultSet rs = ps.executeQuery();
             rs.next();
             return rs.getInt("MAX(WISHID)");
         }
+
+        catch (SQLException e) {
+            throw new WishlistNotFoundException("Wishlist not found");
+        }
     }
 
-    public Wish getWishById(int wishId) throws SQLException {
+    public Wish getWishById(int wishId) {
         Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
         String SQL = "SELECT * FROM WISH WHERE WISHID = ?";
-
 
         try (PreparedStatement ps = connection.prepareStatement(SQL)) {
             ps.setInt(1, wishId);
@@ -157,12 +194,16 @@ public class WishRepository {
                 wish.setPrice(rs.getDouble("PRICE"));
                 wish.setListId(rs.getInt("LISTID"));
                 wish.setImageUrl(imageUrl);
-
                 return wish;
-            } else {
-                return null;
             }
 
+            else {
+                return null;
+            }
+        }
+
+        catch (SQLException e) {
+            throw new DatabaseOperationException("Error occurred while finding wish", e);
         }
     }
 

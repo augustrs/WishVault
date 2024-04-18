@@ -47,6 +47,7 @@ header a {
     text-decoration: none;
     text-transform: uppercase;
     font-size: 18px;
+    transition: 0.5s ease;
 }
 
 
@@ -70,6 +71,7 @@ header nav{
 header a:hover {
     color: #cccc;
     font-weight: bold;
+    transition: 0.5s ease;
 }
 
 /* SHOWCASE */
@@ -139,15 +141,19 @@ header a:hover {
     margin-bottom: 50px;
     box-sizing: border-box;
 }
+
 .form-container input[type="submit"] {
     background-color: #4CAF50;
     color: white;
     cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 15px;
+    transition: 0.5s ease;
 }
+
 .form-container input[type="submit"]:hover {
     background-color: #45a049;
+    transition: 0.5s ease;
 }
 
 /* BUTTON */
@@ -161,11 +167,11 @@ header a:hover {
     font-weight: bold;
     font-size: 24px;
 }
+
 #createbutton h2{
     margin-top: 0;
     font-size: 60px;
     margin-bottom: 0;
-
 }
 
 #createbutton p{
@@ -194,12 +200,15 @@ header a:hover {
     font-weight: 500;
     font-size: 23px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px 0px, rgba(0, 0, 0, 0.2) 0px -1px 0px 0px inset;
-    :hover {
+    transition: 0.5s ease;
+
+    #createbutton button:hover {
         background: #006e52;
+        transition: 0.5s ease;
     }
+
     #createbutton p{
         padding: 150px 150px 150px 150px;
-
     }
 
 }
@@ -217,6 +226,7 @@ footer a {
     text-decoration: none;
     text-transform: uppercase;
     font-size: 16px;
+    transition: 0.5s ease;
 }
 
 
@@ -235,7 +245,10 @@ footer p {
     font-size: 16px;
 }
 
-
+footer a:hover {
+    transition: 0.5s ease;
+    color: #cccc;
+}
 
 
 .wishes {
@@ -337,11 +350,6 @@ footer p {
     margin-top: 0; /* Remove default margin */
     margin-bottom: 10px; /* Add margin between text elements */
 }
-
-
-
-
-
 
 footer {
     background: #5B90AE;

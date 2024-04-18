@@ -10,42 +10,40 @@ import java.util.List;
 
 @Service
 public class WishService {
+
     private WishRepository wishRepository;
 
     public WishService(WishRepository wishRepository) {
         this.wishRepository = wishRepository;
     }
 
-    public void createWishlist(Wishlist wishlist) throws SQLException {
+    public void createWishlist(Wishlist wishlist) {
         wishRepository.createWishlist(wishlist);
     }
-    public List<Wish> getWishesAsObject(int id) throws SQLException {
+    public List<Wish> getWishesAsObject(int id) {
        return wishRepository.getWishesAsObject(id);
     }
-    public String findNameFromId(int id) throws SQLException {
+    public String findNameFromId(int id) {
         return wishRepository.findNameFromId(id);
     }
 
-
-    public Wish createWish(Wish wish, int listId) throws SQLException {
+    public Wish createWish(Wish wish, int listId) {
         return wishRepository.createWish(wish,listId);
     }
-    public int getHighestId() throws SQLException {
+
+    public int getHighestId() {
         return wishRepository.getHighestId();
     }
 
-    public void saveImage(int wishId, String imageUrl) throws SQLException {
+    public void saveImage(int wishId, String imageUrl) {
         wishRepository.saveImage(wishId,imageUrl);
     }
 
-    public int getHighestWishId(int wishId) throws SQLException {
+    public int getHighestWishId(int wishId) {
         return wishRepository.getHighestWishId(wishId);
     }
 
-    public Wish getWishById(int wishid) throws SQLException {
+    public Wish getWishById(int wishid) {
         return wishRepository.getWishById(wishid);
     }
-
-    //TODO Finish this method
-
 }
