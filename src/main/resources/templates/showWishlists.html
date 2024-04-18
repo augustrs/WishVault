@@ -37,7 +37,7 @@
           <a th:href="@{/wishlist/{id}(id=${wishlist.listId})}" class = "bn3637 bn38">Show wishlist</a>
           <form th:action="@{/deleteWishlist/{id}(id=${wishlist.listId})}" method="post">
             <input type="hidden" name="_method" value="delete" />
-            <button type="submit" class="bn3637 bn38">Delete wish</button>
+            <button type="submit" class="bn3637 bn38">Delete wishlist</button>
           </form>
 
         </div>
@@ -53,9 +53,8 @@
 
 
 <div>
-  <!-- Button to redirect to the createWish page -->
   <a href="create" class="create-wish-button">
-    <button>Create Wish</button>
+    <button>Create Wishlist</button>
   </a>
 
 </div>
