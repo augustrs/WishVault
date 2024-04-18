@@ -18,6 +18,11 @@ public class WishController {
         this.wishService = wishService;
     }
 
+    @GetMapping("/")
+    public String redirectToHomePage() {
+        return "redirect:/home";
+    }
+
     @GetMapping("/home")
     public String getHomePage() {
         return "WishVault";
