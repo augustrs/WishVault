@@ -216,4 +216,22 @@ public class WishRepository {
             }
         }
     }
+
+    public List<Wishlist> getAllWishList() throws SQLException {
+        List<Wishlist> wishlists = new ArrayList<>();
+        Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
+        String SQL = "SELECT * FROM WISHLIST";
+        try (PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Wishlist wishlist = new Wishlist();
+                wishlist.setListId(rs.getInt("LISTID"));
+                wishlist.setWisherName(rs.getString("WISHERNAME"));
+                wishlist.setEventName(rs.getString("EVENTNAME"));
+
+                wishlists.add(wishlist);
+            }
+        }
+        return wishlists;
+    }
 }

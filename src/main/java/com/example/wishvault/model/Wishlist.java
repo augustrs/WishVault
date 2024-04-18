@@ -46,4 +46,8 @@ public class Wishlist {
     public void setListId(int listId) {
     this.listId = listId;
     }
+
+    public int getListId() {
+        return listId;
+    }
 }

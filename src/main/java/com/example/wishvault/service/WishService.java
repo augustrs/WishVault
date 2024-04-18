@@ -57,7 +57,9 @@ public class WishService {
     public void deleteWishImage(int id) throws SQLException {
         wishRepository.deleteWishImage(id);
     }
+    public List<Wishlist> getAllWishlist() throws SQLException {
+        return wishRepository.getAllWishList();
+    }
 
-    //TODO Finish this method
 
 }

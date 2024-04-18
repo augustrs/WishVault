@@ -101,6 +101,12 @@ public class WishController {
         redirectAttributes.addAttribute("id",wishListId);
         return "redirect:/wishlist/" + wishListId;
     }
+    @GetMapping("/wishlists")
+    public String showAllWishlist(Model model) throws SQLException {
+        List<Wishlist> wishlists = wishService.getAllWishlist();
+        model.addAttribute("wishlists",wishlists);
+        return "showWishLists";
+    }
 
 
 
