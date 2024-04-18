@@ -107,6 +107,12 @@ public class WishController {
         model.addAttribute("wishlists",wishlists);
         return "showWishLists";
     }
+    @PostMapping("/deleteWishlist/{id}")
+    public String deleteWishlist(@PathVariable int id, RedirectAttributes redirectAttributes) throws SQLException {
+        wishService.deleteWishlist(id);
+        return "redirect:/wishlists";
+    }
+
 
 
 

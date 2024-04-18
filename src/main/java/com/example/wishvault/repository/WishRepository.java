@@ -234,4 +234,17 @@ public class WishRepository {
         }
         return wishlists;
     }
+    public void deleteWishlist(int id) throws SQLException {
+        Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
+        String SQL = "DELETE FROM WISHLIST WHERE LISTID = ?";
+        try (PreparedStatement ps = connection.prepareStatement(SQL)) {
+            ps.setInt(1, id);
+            List<Wish> wishesToDelete = getWishesAsObject(id);
+            for (Wish wish : wishesToDelete) {
+                deleteWishImage(wish.getId());
+                deleteWish(wish.getId());
+            }
+            ps.executeUpdate();
+        }
+    }
 }

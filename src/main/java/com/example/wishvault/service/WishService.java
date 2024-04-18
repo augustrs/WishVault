@@ -60,6 +60,9 @@ public class WishService {
     public List<Wishlist> getAllWishlist() throws SQLException {
         return wishRepository.getAllWishList();
     }
+    public void deleteWishlist(int id) throws SQLException {
+        wishRepository.deleteWishlist(id);
+    }
 
 
 }

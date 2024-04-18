@@ -35,6 +35,11 @@
         <div class="wish-box">
           <p th:text="${wishlist.eventName}" class="wish-name"></p>
           <a th:href="@{/wishlist/{id}(id=${wishlist.listId})}" class = "bn3637 bn38">Show wishlist</a>
+          <form th:action="@{/deleteWishlist/{id}(id=${wishlist.listId})}" method="post">
+            <input type="hidden" name="_method" value="delete" />
+            <button type="submit" class="bn3637 bn38">Delete wish</button>
+          </form>
+
         </div>
       </td>
 
