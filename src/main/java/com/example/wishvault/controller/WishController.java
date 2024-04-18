@@ -1,5 +1,7 @@
 package com.example.wishvault.controller;
 
+import com.example.wishvault.exceptions.DatabaseOperationException;
+import com.example.wishvault.exceptions.WishlistNotFoundException;
 import com.example.wishvault.model.Wish;
 import com.example.wishvault.model.Wishlist;
 import com.example.wishvault.service.WishService;
@@ -8,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -101,9 +104,7 @@ public class WishController {
             Wish wish = wishService.getWishById(wishId);
             model.addAttribute("wish", wish);
             return "showWish";
-        }
-
-        catch (DatabaseOperationException e) {
+        } catch (DatabaseOperationException e) {
             redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
             return "redirect:/error";
         }
