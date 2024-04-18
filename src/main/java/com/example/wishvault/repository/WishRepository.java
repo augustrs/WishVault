@@ -232,6 +232,7 @@ public class WishRepository {
                 wishlists.add(wishlist);
             }
         }
+
         return wishlists;
     }
 }
