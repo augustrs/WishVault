@@ -258,7 +258,7 @@ public class WishRepository {
         }
     }
 
-    public List<Wishlist> getAllWishList() throws SQLException {
+    public List<Wishlist> getAllWishList() {
         List<Wishlist> wishlists = new ArrayList<>();
         Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
         String SQL = "SELECT * FROM WISHLIST";
@@ -272,8 +272,11 @@ public class WishRepository {
 
                 wishlists.add(wishlist);
             }
+            return wishlists;
+        } catch (SQLException e){
+            throw new DatabaseOperationException("Error in database",e);
         }
-        return wishlists;
+
     }
     public void deleteWishlist(int id) throws SQLException {
         Connection connection = ConnectionManager.getConnection(db_url,username,pwd);
