@@ -44,7 +44,6 @@ public class WishVaultControllerTest {
                 .andExpect(view().name("CreateWishList"));
     }
 
-
     @Test
     void testPostWishList() throws Exception {
         when(wishService.getHighestId()).thenReturn(1);
@@ -58,6 +57,7 @@ public class WishVaultControllerTest {
         verify(wishService, times(1)).createWishlist(any(Wishlist.class));
         verify(wishService, times(1)).getHighestId();
     }
+
 
     @Test
     void testGetWishes() throws Exception {
@@ -76,6 +76,7 @@ public class WishVaultControllerTest {
                 .andExpect(model().attributeExists("listId"));
     }
 
+
     @Test
     void testCreateWishForm() throws Exception {
         int id = 123;
@@ -90,6 +91,7 @@ public class WishVaultControllerTest {
 
     @Test
     void testPostWish() throws Exception {
+
         int id = 123;
 
         Wish wish = new Wish("Test Wish", "Description", "http://example.com", 10.0, "http://example.com", 123);
@@ -100,8 +102,8 @@ public class WishVaultControllerTest {
                         .param("description", wish.getDescription())
                         .param("itemUrl", wish.getItemUrl())
                         .param("price", String.valueOf(wish.getPrice()))
-                        .param("id", String.valueOf(wish.getId()))
-                        .param("imageUrl", wish.getImageUrl()))
+                        .param("imageUrl", wish.getImageUrl())
+                        .param("id", String.valueOf(wish.getId())))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/wishlist/" + id));
     }
