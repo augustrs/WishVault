@@ -3,11 +3,11 @@ package com.example.wishvault.model;
 import java.util.List;
 
 public class Wishlist {
+
     private String wisherName;
     private String eventName;
     private List<Wish> wishes;
     private int listId;
-
 
     public Wishlist(String wisherName, String eventName, List<Wish> wishes) {
         this.wisherName = wisherName;
@@ -18,6 +18,7 @@ public class Wishlist {
     public Wishlist() {
 
     }
+
 
     public String getWisherName() {
         return wisherName;
