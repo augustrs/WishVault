@@ -4,6 +4,7 @@ import com.example.wishvault.controller.WishController;
 import com.example.wishvault.model.Wish;
 import com.example.wishvault.model.Wishlist;
 import com.example.wishvault.service.WishService;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -13,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Collections;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -57,22 +59,24 @@ public class WishVaultControllerTest {
         verify(wishService, times(1)).getHighestId();
     }
 
-    /*
+
     @Test
     void testGetWishes() throws Exception {
 
         int id = 123;
-        Wish wish = new Wish("Test Wish", "Description", "http://example.com", 10.0);
+        Wish wish = new Wish("Test Wish", "Description", "http://example.com", 10.0, "http:/example.com", 123);
         when(wishService.getWishesAsObject(id)).thenReturn(Collections.singletonList(wish));
 
         mockMvc.perform(get("/wishlist/{id}", id))
                 .andExpect(status().isOk())
                 .andExpect(view().name("Wishlist"))
                 .andExpect(model().attributeExists("wishes"))
+                .andExpect(model().attribute("wishes", Matchers.hasSize(1)))
+                .andExpect(model().attribute("wishes",Matchers.contains(wish)))
                 .andExpect(model().attributeExists("listId"));
     }
 
-     */
+
 
     @Test
     void testCreateWishForm() throws Exception {
@@ -85,23 +89,26 @@ public class WishVaultControllerTest {
                 .andExpect(model().attributeExists("listId"))
                 .andExpect(model().attributeExists("wish"));
     }
-/*
+
     @Test
     void testPostWish() throws Exception {
 
         int id = 123;
-        Wish wish = new Wish("Test Wish", "Description", "http://example.com", 10.0);
-        when(wishService.createWish(wish, id)).thenReturn(wish);
+        Wish wish = new Wish("Test Wish", "Description", "http://example.com", 10.0, "http://example.com",123);
+        when(wishService.createWish(any(Wish.class) ,anyInt())).thenReturn(wish);
 
         mockMvc.perform(post("/createWish/{id}", id)
                         .param("name", wish.getName())
                         .param("description", wish.getDescription())
                         .param("itemUrl", wish.getItemUrl())
-                        .param("price", String.valueOf(wish.getPrice())))
+                        .param("price", String.valueOf(wish.getPrice()))
+                        .param("imageUrl",wish.getImageUrl())
+                        .param("id",String.valueOf(wish.getId())))
+
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/wishlist/" + id));
     }
 }
 
- */
-}
+
+
