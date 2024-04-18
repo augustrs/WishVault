@@ -108,6 +108,33 @@ public class WishVaultControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/wishlist/" + id));
     }
+    @Test
+    void testViewWishDetails() throws Exception {
+        int wishId = 123;
+        Wish wish = new Wish("Test Wish", "Description", "http://example.com", 10.0, "http://example.com", wishId);
+        when(wishService.getWishById(anyInt())).thenReturn(wish);
+
+        mockMvc.perform(get("/wish/{wishId}", wishId))
+                .andExpect(status().isOk())
+                .andExpect(view().name("showWish"))
+                .andExpect(model().attributeExists("wish"))
+                .andExpect(model().attribute("wish", wish));
+    }
+
+    @Test
+    void testEditWishForm() throws Exception {
+        int wishId = 123;
+        Wish wish = new Wish("Test Wish", "Description", "http://example.com", 10.0, "http://example.com", wishId);
+        when(wishService.getWishById(anyInt())).thenReturn(wish);
+
+        mockMvc.perform(get("/editWish/{id}", wishId))
+                .andExpect(status().isOk())
+                .andExpect(view().name("editWish"))
+                .andExpect(model().attributeExists("wish"))
+                .andExpect(model().attribute("wish", wish));
+
+    }
+
 }
 
 
